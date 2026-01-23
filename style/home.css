@@ -63,3 +63,15 @@
 	justify-content: space-between; /* pushes button to bottom */
 	text-align: center;
 }
+
+.price {
+	font-weight: 500;
+	margin-bottom: 12px;
+}
+
+.price .old-price {
+	text-decoration: line-through;
+	color: #888;
+	margin-left: 6px;
+	font-weight: 400;
+}

@@ -17,7 +17,7 @@
 			rel="stylesheet" />
 		<link rel="stylesheet" href="/style/global.css" />
 
-		<link rel="stylesheet" href="/style/container.css" />
+		<link rel="stylesheet" href="/style/catalogue.css" />
 	</head>
 	<body>
 		<!-- Navbar -->
@@ -42,156 +42,14 @@
 		<!-- Catalogue -->
 		<div class="container py-5">
 			<h2 class="text-center mb-4">Rakhi Catalogue</h2>
-			<div class="row g-4">
-				<!-- Product Cards -->
-				<div class="col-lg-3 col-md-6">
-					<div class="card product-card h-100">
-						<img src="assets/img/rakhi1.jpg" class="card-img-top" />
-						<div class="card-body">
-							<div>
-								<div class="product-title">T T Rakhi</div>
-								<div class="price">
-									Rs 24 <span class="old-price">Rs 36</span>
-								</div>
-							</div>
-							<a
-								href="javascript:void(0)"
-								class="btn btn-whatsapp mt-2"
-								onclick="contactWhatsApp(this)">
-								<i class="fa-brands fa-whatsapp"></i> WhatsApp
-							</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-lg-3 col-md-6">
-					<div class="card product-card h-100">
-						<img src="assets/img/rakhi2.jpg" class="card-img-top" />
-						<div class="card-body">
-							<div>
-								<div class="product-title">Unique Kids Brother Rakhi</div>
-								<div class="price">
-									Rs 60 <span class="old-price">Rs 72</span>
-								</div>
-							</div>
-							<a
-								href="javascript:void(0)"
-								class="btn btn-whatsapp mt-2"
-								onclick="contactWhatsApp(this)">
-								<i class="fa-brands fa-whatsapp"></i> WhatsApp
-							</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-lg-3 col-md-6">
-					<div class="card product-card h-100">
-						<img src="assets/img/rakhi3.jpg" class="card-img-top" />
-						<div class="card-body">
-							<div>
-								<div class="product-title">
-									Double line Plastic and Stone Rakhi
-								</div>
-								<div class="price">
-									Rs 36 <span class="old-price">Rs 48</span>
-								</div>
-							</div>
-							<a
-								href="javascript:void(0)"
-								class="btn btn-whatsapp mt-2"
-								onclick="contactWhatsApp(this)">
-								<i class="fa-brands fa-whatsapp"></i> WhatsApp
-							</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-lg-3 col-md-6">
-					<div class="card product-card h-100">
-						<img src="assets/img/rakhi4.jpg" class="card-img-top" />
-						<div class="card-body">
-							<div>
-								<div class="product-title">6 Colour Stamping Ross</div>
-								<div class="price">
-									Rs 140 <span class="old-price">Rs 160</span>
-								</div>
-							</div>
-							<a
-								href="javascript:void(0)"
-								class="btn btn-whatsapp mt-2"
-								onclick="contactWhatsApp(this)">
-								<i class="fa-brands fa-whatsapp"></i> WhatsApp
-							</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-lg-3 col-md-6">
-					<div class="card product-card h-100">
-						<img src="assets/img/rakhi5.jpg" class="card-img-top" />
-						<div class="card-body">
-							<div>
-								<div class="product-title">Three line Plastic Rakhi</div>
-								<div class="price">
-									Rs 72 <span class="old-price">Rs 86</span>
-								</div>
-							</div>
-							<a
-								href="javascript:void(0)"
-								class="btn btn-whatsapp mt-2"
-								onclick="contactWhatsApp(this)">
-								<i class="fa-brands fa-whatsapp"></i> WhatsApp
-							</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-lg-3 col-md-6">
-					<div class="card product-card h-100">
-						<img src="assets/img/rakhi6.jpg" class="card-img-top" />
-						<div class="card-body">
-							<div>
-								<div class="product-title">Unique Design Metal Rakhi</div>
-								<div class="price">
-									Rs 90 <span class="old-price">Rs 108</span>
-								</div>
-							</div>
-							<a
-								href="javascript:void(0)"
-								class="btn btn-whatsapp mt-2"
-								onclick="contactWhatsApp(this)">
-								<i class="fa-brands fa-whatsapp"></i> WhatsApp
-							</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-lg-3 col-md-6">
-					<div class="card product-card h-100">
-						<img src="assets/img/rakhi7.jpg" class="card-img-top" />
-						<div class="card-body">
-							<div>
-								<div class="product-title">Three line metal and plastic</div>
-								<div class="price">
-									Rs 120 <span class="old-price">Rs 130</span>
-								</div>
-							</div>
-							<a
-								href="javascript:void(0)"
-								class="btn btn-whatsapp mt-2"
-								onclick="contactWhatsApp(this)">
-								<i class="fa-brands fa-whatsapp"></i> WhatsApp
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
+			<div id="catalogue" class="row g-4"></div>
 		</div>
 
 		<footer class="mt-5 text-center">
 			© 2026 Rakhi Collection. All rights reserved.
 		</footer>
 
+		<script src="/scripts/catalogue.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 	</body>
 </html>
