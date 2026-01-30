@@ -5,7 +5,7 @@
 :root {
 	--deep-red: #8b0000;
 	--festive-red: #c62828;
-	--gold: #d4af37;
+	--gold: gold;
 	--dark-gold: #b8962e;
 	--cream: #fff8ee;
 	--beige: #f5e6c8;
@@ -67,19 +67,6 @@ h5 {
 	color: white;
 }
 
-/* Cards */
-.product-card {
-	border: 2.5px solid var(--gold);
-	border-radius: 10px;
-	background: white;
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-}
-
-.product-title {
-	color: var(--deep-red);
-	font-weight: 600;
-}
-
 /* Hero */
 .hero {
 	background-repeat: no-repeat;
@@ -108,6 +95,12 @@ footer {
 /* Utility */
 .text-gold {
 	color: var(--gold);
+}
+
+.gold-outlier {
+	border: 3px solid gold;
+	box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
+	animation: pulseGold 2s infinite alternate;
 }
 
 /* Hero dark overlay for readability */

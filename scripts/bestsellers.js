@@ -13,34 +13,44 @@ fetch("/data/bestsellers.md")
 				if (!v.length) return;
 				obj[k.trim()] = v.join(":").trim();
 			});
-			obj.price = Number(obj.price);
-			obj.old = Number(obj.old);
-			obj.discount = Math.round(((obj.old - obj.price) / obj.old) * 100);
 			return obj;
 		});
 
 		const container = document.getElementById("bestSellers");
 		container.innerHTML = "";
 
-		products.forEach((p) => {
-			container.innerHTML += `
-			<div class="col-lg-3 col-md-6">
-				<div class="card product-card h-100">
-					<img src="/${p.image}" class="card-img-top">
-					<div class="card-body text-center">
-						<div class="product-title">${p.title}</div>
-						<div class="price">
-							Rs ${p.price}
-							<span class="old-price">Rs ${p.old}</span>
-						</div>
-						<div class="discount">${p.discount}% OFF</div>
-						<a href="javascript:void(0)"
-						   class="btn btn-whatsapp w-100 mt-2"
-						   onclick="contactWhatsApp(this)">
-							<i class="fa-brands fa-whatsapp"></i> WhatsApp
-						</a>
-					</div>
-				</div>
-			</div>`;
+		products.forEach((p, idx) => {
+			const div = document.createElement("div");
+			div.classList.add("product-card");
+
+			div.innerHTML = `
+        <div class="card shell-card gold-outlier" onclick='openProduct(${JSON.stringify(p)})'>
+          <div class="image-wrap">
+            <img src="/${p.image}" alt="${p.title}">
+          </div>
+          <div class="card-body text-center">
+            <h5 class="product-title">${p.title}</h5>
+          </div>
+        </div>
+      `;
+			container.appendChild(div);
 		});
+
+		// Duplicate cards for seamless infinite scroll
+		container.innerHTML += container.innerHTML;
+
+		// Infinite horizontal scroll
+		let scrollPos = 0;
+		function animate() {
+			scrollPos += 0.5; // adjust speed
+			if (scrollPos >= container.scrollWidth / 2) scrollPos = 0;
+			container.style.transform = `translateX(-${scrollPos}px)`;
+			requestAnimationFrame(animate);
+		}
+		animate();
 	});
+
+function openProduct(p) {
+	localStorage.setItem("selectedProduct", JSON.stringify(p));
+	window.location.href = "/product.html";
+}

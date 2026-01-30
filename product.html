@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Product</title>
+		<link rel="stylesheet" href="/style/global.css" />
+	</head>
+	<body>
+		<div class="container py-5 text-center">
+			<img id="img" style="max-width: 400px; border-radius: 15px" />
+			<h1 id="title"></h1>
+			<p id="desc"></p>
+
+			<a id="wa" class="btn btn-success mt-3">Order on WhatsApp</a>
+		</div>
+
+		<script>
+			const p = JSON.parse(localStorage.getItem("selectedProduct"));
+
+			document.getElementById("img").src = "/" + p.image;
+			document.getElementById("title").innerText = p.title;
+			document.getElementById("desc").innerText = p.description || "";
+
+			document.getElementById("wa").href =
+				"https://wa.me/917601938547?text=I want to order: " +
+				encodeURIComponent(p.title);
+		</script>
+	</body>
+</html>
