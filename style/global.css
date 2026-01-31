@@ -229,7 +229,7 @@ footer {
 
 .menu-action:hover {
 	transform: scale(1.1);
-	background-color: #1ebe5d;
+	background-color: var(--dark-gold);
 }
 
 /* Responsive: bottom-right horizontal for mobile */
