@@ -56,17 +56,6 @@ h5 {
 	color: var(--white);
 }
 
-.btn-whatsapp {
-	background: #25d366;
-	color: white;
-	font-weight: 600;
-}
-
-.btn-whatsapp:hover {
-	background: #1ebe5d;
-	color: white;
-}
-
 /* Hero */
 .hero {
 	background-repeat: no-repeat;
@@ -100,7 +89,6 @@ footer {
 .gold-outlier {
 	border: 3px solid gold;
 	box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
-	animation: pulseGold 2s infinite alternate;
 }
 
 /* Hero dark overlay for readability */
