@@ -20,40 +20,19 @@
 				this.onload = null;
 				this.rel = 'stylesheet';
 			" />
-
-		<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
 		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-		<style>
-			@font-face {
-				font-family: "Font Awesome 6 Free";
-				font-style: normal;
-				font-weight: 400;
-				font-display: swap;
-				src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/webfonts/fa-regular-400.woff2")
-					format("woff2");
-			}
-
-			@font-face {
-				font-family: "Font Awesome 6 Free";
-				font-style: normal;
-				font-weight: 900;
-				font-display: swap;
-				src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/webfonts/fa-solid-900.woff2")
-					format("woff2");
-			}
-
-			@font-face {
-				font-family: "Font Awesome 6 Brands";
-				font-style: normal;
-				font-weight: 400;
-				font-display: swap;
-				src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/webfonts/fa-brands-400.woff2")
-					format("woff2");
-			}
-		</style>
+			rel="preload"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+			as="style"
+			onload="
+				this.onload = null;
+				this.rel = 'stylesheet';
+			" />
+		<noscript>
+			<link
+				rel="stylesheet"
+				href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+		</noscript>
 
 		<!-- Homepage-specific CSS -->
 		<link rel="stylesheet" href="/style/home.css" />
@@ -183,18 +162,18 @@
 				</p>
 
 				<p class="text-center mt-4" style="font-weight: 600; font-size: 1.1rem">
-					We deliver <span class="text-gold">pan-India</span> including
-					<span class="text-gold">Delhi</span>,
-					<span class="text-gold">Mumbai</span>,
-					<span class="text-gold">Ahmedabad</span>,
-					<span class="text-gold">Chennai</span>,
-					<span class="text-gold">Jaipur</span>,
-					<span class="text-gold">Hyderabad</span>,
-					<span class="text-gold">Bangalore</span>,
-					<span class="text-gold">Kolkata</span>,
-					<span class="text-gold">Pune</span>,
-					<span class="text-gold">Surat</span>, and over
-					<span class="text-gold">600 pincodes</span>.
+					We deliver <span style="color: #c62828">pan-India</span> including
+					<span style="color: #c62828">Delhi</span>,
+					<span style="color: #c62828">Mumbai</span>,
+					<span style="color: #c62828">Ahmedabad</span>,
+					<span style="color: #c62828">Chennai</span>,
+					<span style="color: #c62828">Jaipur</span>,
+					<span style="color: #c62828">Hyderabad</span>,
+					<span style="color: #c62828">Bangalore</span>,
+					<span style="color: #c62828">Kolkata</span>,
+					<span style="color: #c62828">Pune</span>,
+					<span style="color: #c62828">Surat</span>, and over
+					<span style="color: #c62828">600 pincodes</span>.
 				</p>
 			</div>
 
