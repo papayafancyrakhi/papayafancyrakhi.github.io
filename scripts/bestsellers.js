@@ -1,171 +1,110 @@
 // Supabase client
 supabase = window.supabase.createClient(SUPA_URL, SUPA_PUBLIC_KEY);
 
-// Render a single product card
-function renderProductCard(product) {
-	const div = document.createElement("div");
-	div.className = "product-card";
-
-	div.innerHTML = `
-		<div class="card shell-card gold-outlier">
-			<div class="image-wrap">
-				<img src="${product.image}" alt="${product.title}" width="260" height="260">
-			</div>
-			<div class="card-body text-center">
-				<h5 class="product-title">${product.title}</h5>
-			</div>
-		</div>
-	`;
-
-	div.addEventListener("click", () => {
-		location.href = `/product#id=${encodeURIComponent(product.id)}`;
-	});
-
-	return div;
-}
-
-// Fetch best sellers from Supabase with caching
 async function loadBestSellers() {
 	const localData = localStorage.getItem("bestSellers");
 	const localTimestamps = localStorage.getItem("bestSellersTimestamps");
 
-	// Fetch only id and updated_at first (ignore show_in_catalogue)
+	let localProducts = JSON.parse(localData || "[]");
+	let localTimestampsParsed = JSON.parse(localTimestamps || "{}");
+
+	// 1. Get live product ids
 	const { data: productsMeta, error: metaError } = await supabase
 		.from("products")
 		.select("id, updated_at")
 		.eq("is_best_seller", true);
 
-	if (metaError) {
-		console.error("Supabase fetch error:", metaError);
+	if (metaError) return console.error(metaError);
+
+	if (!productsMeta || productsMeta.length === 0) {
+		localStorage.removeItem("bestSellers");
+		localStorage.removeItem("bestSellersTimestamps");
+
+		document.getElementById("bestSellers").innerHTML =
+			'<div class="empty-state">No best sellers.</div>';
 		return;
 	}
 
-	let shouldUpdate = false;
-	if (!localData || !localTimestamps) {
-		shouldUpdate = true;
-	} else {
-		const localTimestampsParsed = JSON.parse(localTimestamps);
-		for (let p of productsMeta) {
-			if (
-				!localTimestampsParsed[p.id] ||
-				localTimestampsParsed[p.id] !== p.updated_at
-			) {
-				console.log(
-					`Product ${p.id} has new update date. Will fetch full data.`,
-				);
-				shouldUpdate = true;
-				break;
-			}
-		}
-		if (!shouldUpdate)
-			console.log("All products are up to date. Using localStorage.");
+	const liveIds = new Set();
+	const changedIds = [];
+
+	for (const p of productsMeta) {
+		liveIds.add(p.id);
+
+		if (
+			!localTimestampsParsed[p.id] ||
+			localTimestampsParsed[p.id] !== p.updated_at
+		)
+			changedIds.push(p.id);
 	}
 
-	let products;
-	if (shouldUpdate) {
+	// 2. Remove deleted products from cache
+	localProducts = localProducts.filter((p) => liveIds.has(p.id));
+
+	// 3. Fetch changed products
+	let updatedProducts = [];
+	if (changedIds.length > 0) {
 		const { data, error } = await supabase
 			.from("products")
-			.select("id,title,image,is_best_seller,updated_at")
-			.eq("is_best_seller", true)
-			.order("created_at", { ascending: false });
+			.select(
+				"id,title,description,image,gallery,tags,price,discount,updated_at,is_best_seller",
+			)
+			.in("id", changedIds);
 
-		if (error) {
-			console.error("Supabase fetch error:", error);
-			return;
-		}
+		if (error) return console.error(error);
 
-		products = data;
-
-		// Save data & timestamps to localStorage
-		localStorage.setItem("bestSellers", JSON.stringify(products));
-		const timestamps = {};
-		products.forEach((p) => (timestamps[p.id] = p.updated_at));
-		localStorage.setItem("bestSellersTimestamps", JSON.stringify(timestamps));
-	} else {
-		products = JSON.parse(localData);
+		updatedProducts = data;
 	}
 
+	// 4. Merge
+	const productMap = new Map(localProducts.map((p) => [p.id, p]));
+	updatedProducts.forEach((p) => {
+		productMap.set(p.id, p);
+		localTimestampsParsed[p.id] = p.updated_at;
+	});
+
+	const bestSellers = Array.from(productMap.values());
+
+	// 5. Save
+	localStorage.setItem("bestSellers", JSON.stringify(bestSellers));
+	localStorage.setItem(
+		"bestSellersTimestamps",
+		JSON.stringify(localTimestampsParsed),
+	);
+
+	// 6. Render
 	const container = document.getElementById("bestSellers");
 	container.innerHTML = "";
 
-	// Render cards
-	products.forEach((p) => container.appendChild(renderProductCard(p)));
-	products.forEach((p) => container.appendChild(renderProductCard(p))); // duplicate for scroll
-
-	// ---------- AUTO SCROLL ----------
-	let speed = 0.5;
-	let isUserInteracting = false;
-
-	function autoScroll() {
-		if (!isUserInteracting) {
-			container.scrollLeft += speed;
-			if (container.scrollLeft >= container.scrollWidth / 2) {
-				container.scrollLeft = 0;
-			}
-		}
-		requestAnimationFrame(autoScroll);
+	if (bestSellers.length === 0) {
+		container.innerHTML = '<div class="empty-state">No best sellers.</div>';
+		return;
 	}
-	autoScroll();
 
-	// ---------- MOUSE DRAG ----------
-	let isDown = false;
-	let startX = 0;
-	let scrollStart = 0;
+	bestSellers.forEach((p) => {
+		const div = document.createElement("div");
+		div.className = "product-card";
 
-	container.addEventListener("mousedown", (e) => {
-		isDown = true;
-		isUserInteracting = true;
-		startX = e.pageX - container.offsetLeft;
-		scrollStart = container.scrollLeft;
+		div.innerHTML = `
+			<div class="card shell-card gold-outlier">
+				<div class="image-wrap">
+					<img src="${p.image}" alt="${p.title}" width="260" height="260">
+				</div>
+				<div class="card-body text-center">
+					<h5 class="product-title">${p.title}</h5>
+				</div>
+			</div>
+		`;
+
+		div.addEventListener("click", () => {
+			location.href = `/product#id=${encodeURIComponent(p.id)}`;
+		});
+
+		container.appendChild(div);
 	});
 
-	container.addEventListener("mouseup", () => {
-		isDown = false;
-		isUserInteracting = false;
-	});
-
-	container.addEventListener("mouseleave", () => {
-		isDown = false;
-		isUserInteracting = false;
-	});
-
-	container.addEventListener("mousemove", (e) => {
-		if (!isDown) return;
-		e.preventDefault();
-		container.scrollLeft = scrollStart - (e.pageX - startX) * 2;
-	});
-
-	// ---------- TOUCH ----------
-	let touchStartX = 0;
-	let touchScrollStart = 0;
-
-	container.addEventListener(
-		"touchstart",
-		(e) => {
-			isUserInteracting = true;
-			touchStartX = e.touches[0].pageX;
-			touchScrollStart = container.scrollLeft;
-		},
-		{ passive: true },
-	);
-
-	container.addEventListener(
-		"touchmove",
-		(e) => {
-			container.scrollLeft =
-				touchScrollStart - (e.touches[0].pageX - touchStartX) * 2;
-		},
-		{ passive: true },
-	);
-
-	container.addEventListener(
-		"touchend",
-		() => {
-			isUserInteracting = false;
-		},
-		{ passive: true },
-	);
+	// Optional: duplicate for scrolling like before
+	bestSellers.forEach((p) => container.appendChild(renderProductCard(p)));
 }
 
-// Run
 loadBestSellers();
