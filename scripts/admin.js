@@ -1,8 +1,5 @@
 // Initialize Supabase
-supabase = window.supabase.createClient(
-	"https://kalnrdppoweegikefipm.supabase.co",
-	"sb_publishable_8aQ_4ZPHfA1SKbVpg5BylA_IuEuJfcd",
-);
+supabase = window.supabase.createClient(SUPA_URL, SUPA_PUBLIC_KEY);
 
 // DOM
 const loginForm = document.getElementById("loginForm");
