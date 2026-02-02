@@ -1,6 +1,3 @@
-/* Google Fonts */
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&display=swap");
-
 /* Root Colors */
 :root {
 	--deep-red: #8b0000;
@@ -11,10 +8,6 @@
 	--beige: #f5e6c8;
 	--text-dark: #3b2b1a;
 	--white: #ffffff;
-}
-
-html {
-	font-display: swap;
 }
 /* Base */
 body {
@@ -144,6 +137,8 @@ footer {
 .sticky-menu-wrapper {
 	position: fixed;
 	bottom: 20px;
+	width: 60px;
+	height: 60px;
 	right: 20px;
 	z-index: 9999;
 }
