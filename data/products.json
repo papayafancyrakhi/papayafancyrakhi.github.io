@@ -1,0 +1,211 @@
+[
+	{
+		"id": "bs001",
+		"title": "Red Pearl Rakhi 1",
+		"image": "assets/imgs/bestseller/bs_rakhi1.jpeg",
+		"category": ["rakhi", "best-seller"],
+		"description": "Red Pearl Rakhi 1 - perfect for gifting this Raksha Bandhan",
+		"price": 50,
+		"old": 60,
+		"discount": 17,
+		"isBestSeller": true
+	},
+	{
+		"id": "bs002",
+		"title": "Red Pearl Rakhi 2",
+		"image": "assets/imgs/bestseller/bs_rakhi2.jpeg",
+		"category": ["rakhi", "best-seller"],
+		"description": "Red Pearl Rakhi 2 - perfect for gifting this Raksha Bandhan",
+		"price": 55,
+		"old": 65,
+		"discount": 15,
+		"isBestSeller": true
+	},
+	{
+		"id": "bs003",
+		"title": "Red Pearl Rakhi 3",
+		"image": "assets/imgs/bestseller/bs_rakhi3.jpeg",
+		"category": ["rakhi", "best-seller"],
+		"description": "Red Pearl Rakhi 3 - perfect for gifting this Raksha Bandhan",
+		"price": 60,
+		"old": 70,
+		"discount": 14,
+		"isBestSeller": true
+	},
+	{
+		"id": "bs004",
+		"title": "Red Pearl Rakhi 4",
+		"image": "assets/imgs/bestseller/bs_rakhi4.jpeg",
+		"category": ["rakhi", "best-seller"],
+		"description": "Red Pearl Rakhi 4 - perfect for gifting this Raksha Bandhan",
+		"price": 62,
+		"old": 75,
+		"discount": 17,
+		"isBestSeller": true
+	},
+	{
+		"id": "bs005",
+		"title": "Red Pearl Rakhi 5",
+		"image": "assets/imgs/bestseller/bs_rakhi5.jpeg",
+		"category": ["rakhi", "best-seller"],
+		"description": "Red Pearl Rakhi 5 - perfect for gifting this Raksha Bandhan",
+		"price": 65,
+		"old": 80,
+		"discount": 19,
+		"isBestSeller": true
+	},
+	{
+		"id": "bs006",
+		"title": "Red Pearl Rakhi 6",
+		"image": "assets/imgs/bestseller/bs_rakhi6.jpeg",
+		"category": ["rakhi", "best-seller"],
+		"description": "Red Pearl Rakhi 6 - perfect for gifting this Raksha Bandhan",
+		"price": 70,
+		"old": 85,
+		"discount": 18,
+		"isBestSeller": true
+	},
+	{
+		"id": "bs007",
+		"title": "Red Pearl Rakhi 7",
+		"image": "assets/imgs/bestseller/bs_rakhi7.jpeg",
+		"category": ["rakhi", "best-seller"],
+		"description": "Red Pearl Rakhi 7 - perfect for gifting this Raksha Bandhan",
+		"price": 75,
+		"old": 90,
+		"discount": 17,
+		"isBestSeller": true
+	},
+	{
+		"id": "bs008",
+		"title": "Red Pearl Rakhi 8",
+		"image": "assets/imgs/bestseller/bs_rakhi8.jpeg",
+		"category": ["rakhi", "best-seller"],
+		"description": "Red Pearl Rakhi 8 - perfect for gifting this Raksha Bandhan",
+		"price": 80,
+		"old": 95,
+		"discount": 16,
+		"isBestSeller": true
+	},
+	{
+		"id": "bs009",
+		"title": "Red Pearl Rakhi 9",
+		"image": "assets/imgs/bestseller/bs_rakhi9.jpeg",
+		"category": ["rakhi", "best-seller"],
+		"description": "Red Pearl Rakhi 9 - perfect for gifting this Raksha Bandhan",
+		"price": 85,
+		"old": 100,
+		"discount": 15,
+		"isBestSeller": true
+	},
+	{
+		"id": "bs010",
+		"title": "Red Pearl Rakhi 10",
+		"image": "assets/imgs/bestseller/bs_rakhi10.jpeg",
+		"category": ["rakhi", "best-seller"],
+		"description": "Red Pearl Rakhi 10 - perfect for gifting this Raksha Bandhan",
+		"price": 90,
+		"old": 105,
+		"discount": 14,
+		"isBestSeller": true
+	},
+	{
+		"id": "bs011",
+		"title": "Red Pearl Rakhi 11",
+		"image": "assets/imgs/bestseller/bs_rakhi11.jpeg",
+		"category": ["rakhi", "best-seller"],
+		"description": "Red Pearl Rakhi 11 - perfect for gifting this Raksha Bandhan",
+		"price": 95,
+		"old": 110,
+		"discount": 14,
+		"isBestSeller": true
+	},
+	{
+		"id": "bs012",
+		"title": "Red Pearl Rakhi 12",
+		"image": "assets/imgs/bestseller/bs_rakhi12.jpeg",
+		"category": ["rakhi", "best-seller"],
+		"description": "Red Pearl Rakhi 12 - perfect for gifting this Raksha Bandhan",
+		"price": 100,
+		"old": 115,
+		"discount": 13,
+		"isBestSeller": true
+	},
+	{
+		"id": "cat001",
+		"title": "T T Rakhi",
+		"image": "assets/imgs/catalogue/rakhi1.jpg",
+		"category": ["Kids"],
+		"description": "T T Rakhi – perfect for gifting",
+		"price": 24,
+		"old": 36,
+		"discount": 33,
+		"isBestSeller": false
+	},
+	{
+		"id": "cat002",
+		"title": "Unique Kids Brother Rakhi",
+		"image": "assets/imgs/catalogue/rakhi2.jpg",
+		"category": ["Kids"],
+		"description": "Unique Kids Brother Rakhi – perfect for gifting",
+		"price": 60,
+		"old": 72,
+		"discount": 17,
+		"isBestSeller": false
+	},
+	{
+		"id": "cat003",
+		"title": "Double line Plastic and Stone Rakhi",
+		"image": "assets/imgs/catalogue/rakhi3.jpg",
+		"category": ["Plastic"],
+		"description": "Double line Plastic and Stone Rakhi – perfect for gifting",
+		"price": 36,
+		"old": 48,
+		"discount": 25,
+		"isBestSeller": false
+	},
+	{
+		"id": "cat004",
+		"title": "6 Colour Stamping Ross",
+		"image": "assets/imgs/catalogue/rakhi4.jpg",
+		"category": ["Decorative"],
+		"description": "6 Colour Stamping Ross – perfect for gifting",
+		"price": 140,
+		"old": 160,
+		"discount": 13,
+		"isBestSeller": false
+	},
+	{
+		"id": "cat005",
+		"title": "Three line Plastic Rakhi",
+		"image": "assets/imgs/catalogue/rakhi5.jpg",
+		"category": ["Plastic"],
+		"description": "Three line Plastic Rakhi – perfect for gifting",
+		"price": 72,
+		"old": 86,
+		"discount": 16,
+		"isBestSeller": false
+	},
+	{
+		"id": "cat006",
+		"title": "Unique Design Metal Rakhi",
+		"image": "assets/imgs/catalogue/rakhi6.jpg",
+		"category": ["Metal"],
+		"description": "Unique Design Metal Rakhi – perfect for gifting",
+		"price": 90,
+		"old": 108,
+		"discount": 17,
+		"isBestSeller": false
+	},
+	{
+		"id": "cat007",
+		"title": "Three line metal and plastic",
+		"image": "assets/imgs/catalogue/rakhi7.jpg",
+		"category": ["Mixed"],
+		"description": "Three line metal and plastic – perfect for gifting",
+		"price": 120,
+		"old": 130,
+		"discount": 8,
+		"isBestSeller": false
+	}
+]

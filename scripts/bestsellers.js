@@ -1,43 +1,40 @@
-fetch("/data/bestsellers.md")
-	.then((r) => r.text())
-	.then((md) => {
-		const blocks = md
-			.split("## product")
-			.map((b) => b.trim())
-			.filter((b) => b.length);
+// Render a single product card
+function renderProductCard(product) {
+	const div = document.createElement("div");
+	div.className = "product-card";
 
-		const products = blocks.map((b) => {
-			const obj = {};
-			b.split("\n").forEach((line) => {
-				const [k, ...v] = line.split(":");
-				if (!v.length) return;
-				obj[k.trim()] = v.join(":").trim();
-			});
-			return obj;
-		});
+	div.innerHTML = `
+		<div class="card shell-card gold-outlier">
+			<div class="image-wrap">
+				<img src="/${product.image}" alt="${product.title}">
+			</div>
+			<div class="card-body text-center">
+				<h5 class="product-title">${product.title}</h5>
+			</div>
+		</div>
+	`;
 
+	div.addEventListener("click", () => {
+		sessionStorage.setItem("selectedProductId", product.id);
+		location.href = "/product.html";
+	});
+
+	return div;
+}
+
+// Fetch products and render best sellers
+fetch("/data/products.json")
+	.then((res) => res.json())
+	.then((products) => {
+		const bestSellers = products.filter((p) => p.isBestSeller);
 		const container = document.getElementById("bestSellers");
 		container.innerHTML = "";
 
-		products.forEach((p) => {
-			const div = document.createElement("div");
-			div.classList.add("product-card");
-			div.innerHTML = `
-            <div class="card shell-card gold-outlier" onclick='openProduct(${JSON.stringify(
-							p,
-						)})'>
-                <div class="image-wrap">
-                    <img src="/${p.image}" alt="${p.title}">
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="product-title">${p.title}</h5>
-                </div>
-            </div>`;
-			container.appendChild(div);
-		});
+		// Render cards
+		bestSellers.forEach((p) => container.appendChild(renderProductCard(p)));
 
 		// Duplicate for seamless scroll
-		container.innerHTML += container.innerHTML;
+		bestSellers.forEach((p) => container.appendChild(renderProductCard(p)));
 
 		// Auto scroll
 		let speed = 0.5;
@@ -47,84 +44,57 @@ fetch("/data/bestsellers.md")
 			if (!isUserInteracting) {
 				container.scrollLeft += speed;
 				if (container.scrollLeft >= container.scrollWidth / 2) {
-					container.scrollLeft =
-						(container.scrollLeft + speed) % (container.scrollWidth / 2);
+					container.scrollLeft %= container.scrollWidth / 2;
 				}
 			}
 			requestAnimationFrame(autoScroll);
 		}
 		autoScroll();
 
-		// Drag to scroll
-		let isDown = false;
-		let startX;
-		let scrollLeft;
+		// Drag and touch scroll
+		let isDown = false,
+			startX = 0,
+			scrollLeft = 0;
+		let startTouchX = 0,
+			touchScrollStart = 0;
 
-		container.addEventListener(
-			"mousedown",
-			(e) => {
-				isDown = true;
-				isUserInteracting = true;
-				container.classList.add("active");
-				startX = e.pageX - container.offsetLeft;
-				scrollLeft = container.scrollLeft;
-			},
-			{ passive: true },
-		);
-		container.addEventListener(
-			"mouseleave",
-			() => {
-				isDown = false;
-				isUserInteracting = false;
-				container.classList.remove("active");
-			},
-			{ passive: true },
-		);
-		container.addEventListener(
-			"mouseup",
-			() => {
-				isDown = false;
-				isUserInteracting = false;
-				container.classList.remove("active");
-			},
-			{ passive: true },
-		);
-		container.addEventListener(
-			"mousemove",
-			(e) => {
-				if (!isDown) return;
-				e.preventDefault();
-				const x = e.pageX - container.offsetLeft;
-				const walk = (x - startX) * 2; // scroll-fast
-				container.scrollLeft = scrollLeft - walk;
-			},
-			{ passive: false }, // must be false because we call preventDefault
-		);
-
-		// Touch events for mobile
-		let startTouchX = 0;
-		let scrollStart = 0;
+		container.addEventListener("mousedown", (e) => {
+			isDown = true;
+			isUserInteracting = true;
+			startX = e.pageX - container.offsetLeft;
+			scrollLeft = container.scrollLeft;
+		});
+		container.addEventListener("mouseup", () => {
+			isDown = false;
+			isUserInteracting = false;
+		});
+		container.addEventListener("mouseleave", () => {
+			isDown = false;
+			isUserInteracting = false;
+		});
+		container.addEventListener("mousemove", (e) => {
+			if (!isDown) return;
+			e.preventDefault();
+			container.scrollLeft = scrollLeft - (e.pageX - startX) * 2;
+		});
 
 		container.addEventListener(
 			"touchstart",
 			(e) => {
 				isUserInteracting = true;
 				startTouchX = e.touches[0].pageX;
-				scrollStart = container.scrollLeft;
+				touchScrollStart = container.scrollLeft;
 			},
 			{ passive: true },
 		);
-
 		container.addEventListener(
 			"touchmove",
 			(e) => {
-				const x = e.touches[0].pageX;
-				const walk = (x - startTouchX) * 2;
-				container.scrollLeft = scrollStart - walk;
+				container.scrollLeft =
+					touchScrollStart - (e.touches[0].pageX - startTouchX) * 2;
 			},
 			{ passive: true },
 		);
-
 		container.addEventListener(
 			"touchend",
 			() => {
@@ -133,8 +103,3 @@ fetch("/data/bestsellers.md")
 			{ passive: true },
 		);
 	});
-
-function openProduct(p) {
-	localStorage.setItem("selectedProduct", JSON.stringify(p));
-	window.location.href = "/product.html";
-}

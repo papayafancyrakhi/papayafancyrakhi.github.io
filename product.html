@@ -1,28 +1,91 @@
 <!doctype html>
-<html>
+<html lang="en">
 	<head>
+		<meta charset="UTF-8" />
 		<title>Product</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- Bootstrap 5 -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+			rel="stylesheet" />
+
+		<style>
+			.product-img {
+				max-height: 450px;
+				object-fit: contain;
+				border-radius: 16px;
+			}
+			.tag {
+				background: #f1f1f1;
+				padding: 6px 12px;
+				border-radius: 50px;
+				font-size: 14px;
+				margin-right: 6px;
+				display: inline-block;
+				margin-bottom: 6px;
+			}
+		</style>
 		<link rel="stylesheet" href="/style/global.css" />
 	</head>
-	<body>
-		<div class="container py-5 text-center">
-			<img id="img" style="max-width: 400px; border-radius: 15px" />
-			<h1 id="title"></h1>
-			<p id="desc"></p>
 
-			<a id="wa" class="btn btn-success mt-3">Order on WhatsApp</a>
+	<body class="bg-light">
+		<div class="container py-5">
+			<div class="row g-5 align-items-start">
+				<!-- Product Image -->
+				<div class="col-lg-6 text-center">
+					<img id="img" class="img-fluid product-img shadow-sm" />
+				</div>
+
+				<!-- Product Info -->
+				<div class="col-lg-6">
+					<h1 id="title" class="fw-bold mb-3"></h1>
+
+					<div id="tags" class="mb-3"></div>
+
+					<p id="desc" class="text-muted fs-5"></p>
+
+					<div class="d-flex gap-3 mt-4">
+						<a id="wa" class="btn btn-success btn-lg px-4">
+							Order on WhatsApp
+						</a>
+						<a href="/" class="btn btn-outline-secondary btn-lg">
+							Back to shop
+						</a>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<script>
-			const p = JSON.parse(localStorage.getItem("selectedProduct"));
+			const p = JSON.parse(sessionStorage.getItem("selectedProduct"));
+
+			if (!p) {
+				document.body.innerHTML =
+					"<h2 class='text-center mt-5'>No product selected</h2>";
+				throw "No product data";
+			}
 
 			document.getElementById("img").src = "/" + p.image;
 			document.getElementById("title").innerText = p.title;
 			document.getElementById("desc").innerText = p.description || "";
 
+			// Tags / Category
+			if (p.category || p.tags) {
+				const tags = p.category || p.tags;
+				const tagContainer = document.getElementById("tags");
+
+				(Array.isArray(tags) ? tags : [tags]).forEach((tag) => {
+					const span = document.createElement("span");
+					span.className = "tag";
+					span.innerText = tag;
+					tagContainer.appendChild(span);
+				});
+			}
+
 			document.getElementById("wa").href =
-				"https://wa.me/917601938547?text=I want to order: " +
-				encodeURIComponent(p.title);
+				"https://wa.me/917601938547?text=" +
+				encodeURIComponent("I want to order: " + p.title);
 		</script>
 	</body>
 </html>

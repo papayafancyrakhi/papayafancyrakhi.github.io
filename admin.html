@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Admin Dashboard</title>
+		<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+		<style>
+			body {
+				font-family: sans-serif;
+				margin: 0;
+				padding: 20px;
+				background: #f7f7f7;
+			}
+			h2 {
+				text-align: center;
+			}
+			#loginForm,
+			#dashboard {
+				max-width: 900px;
+				margin: 0 auto;
+				background: #fff;
+				padding: 20px;
+				border-radius: 10px;
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+			}
+
+			/* Login form */
+			#loginForm input {
+				width: 100%;
+				padding: 10px;
+				margin-bottom: 10px;
+				border-radius: 6px;
+				border: 1px solid #ccc;
+			}
+			#loginForm button {
+				width: 100%;
+				padding: 10px;
+				border: none;
+				border-radius: 6px;
+				background: #4f46e5;
+				color: #fff;
+				font-size: 16px;
+				cursor: pointer;
+			}
+			#loginError {
+				color: red;
+				text-align: center;
+			}
+
+			/* Dashboard */
+			#dashboard {
+				display: none;
+			}
+			#logoutBtn {
+				padding: 10px 20px;
+				border: none;
+				border-radius: 6px;
+				background: #ef4444;
+				color: #fff;
+				cursor: pointer;
+				margin-bottom: 20px;
+			}
+
+			/* Product table */
+			.table-wrapper {
+				overflow-x: auto;
+				margin-bottom: 20px;
+			}
+			table {
+				width: 100%;
+				border-collapse: collapse;
+				min-width: 700px;
+			}
+			th,
+			td {
+				padding: 10px;
+				border: 1px solid #ccc;
+				text-align: center;
+			}
+			th {
+				background: #f3f3f3;
+			}
+			td img {
+				width: 60px;
+				height: 60px;
+				object-fit: cover;
+				border-radius: 6px;
+			}
+
+			button.edit,
+			button.delete {
+				padding: 6px 10px;
+				border: none;
+				border-radius: 5px;
+				cursor: pointer;
+			}
+			button.edit {
+				background: #10b981;
+				color: #fff;
+			}
+			button.delete {
+				background: #ef4444;
+				color: #fff;
+			}
+
+			/* Form */
+			#productForm {
+				margin-top: 20px;
+			}
+			#productForm input,
+			#productForm textarea {
+				width: 100%;
+				padding: 8px;
+				margin-bottom: 10px;
+				border-radius: 6px;
+				border: 1px solid #ccc;
+			}
+			#productForm label {
+				font-weight: bold;
+				display: block;
+				margin-bottom: 5px;
+			}
+			#productForm button {
+				padding: 10px;
+				border: none;
+				border-radius: 6px;
+				background: #4f46e5;
+				color: #fff;
+				cursor: pointer;
+			}
+
+			@media (max-width: 600px) {
+				table {
+					min-width: 0;
+					font-size: 14px;
+				}
+				td img {
+					width: 40px;
+					height: 40px;
+				}
+			}
+			.spinner {
+				position: fixed;
+				inset: 0;
+				background: rgba(0, 0, 0, 0.85);
+				z-index: 9999;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				backdrop-filter: blur(4px);
+			}
+
+			.spinner-text {
+				margin-top: 14px;
+				color: #fff;
+				font-size: 18px;
+				font-weight: 700;
+				letter-spacing: 0.5px;
+			}
+
+			/* Circular loader */
+			.loader {
+				width: 64px;
+				height: 64px;
+				border: 6px solid rgba(255, 255, 255, 0.2);
+				border-top-color: #ffffff;
+				border-radius: 50%;
+				animation: spin 0.9s linear infinite;
+			}
+
+			@keyframes spin {
+				to {
+					transform: rotate(360deg);
+				}
+			}
+
+			.hidden {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- Login Form -->
+		<div id="loginForm">
+			<h2>Admin Login</h2>
+			<input type="email" id="email" placeholder="Email" required />
+			<input type="password" id="password" placeholder="Password" required />
+			<button id="loginBtn">Login</button>
+			<p id="loginError"></p>
+		</div>
+
+		<!-- Dashboard -->
+		<div id="dashboard">
+			<h2>Admin Dashboard</h2>
+			<button id="logoutBtn">Logout</button>
+
+			<!-- Products Table -->
+			<div class="table-wrapper">
+				<table id="productsTable">
+					<thead>
+						<tr>
+							<th>Title</th>
+							<th>Description</th>
+							<th>Tags</th>
+							<th>Best Seller</th>
+							<th>Show in Catalogue</th>
+							<th>Main Image</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+
+			<!-- Add/Edit Product Form -->
+			<form id="productForm">
+				<h3 id="formTitle">Add New Product</h3>
+				<input type="hidden" id="productId" />
+				<label>Title</label>
+				<input type="text" id="prodTitle" required />
+				<label>Description</label>
+				<textarea id="prodDesc" rows="3" required></textarea>
+				<label>Tags (comma separated)</label>
+				<input type="text" id="prodTags" required />
+				<label>Main Image</label>
+				<input type="file" id="prodMainImg" accept="image/*" required />
+				<label>Extra Images (multiple)</label>
+				<input type="file" id="prodExtraImgs" accept="image/*" multiple />
+				<label>
+					<input type="checkbox" id="prodBestSeller" /> Best Seller
+				</label>
+				<label>
+					<input type="checkbox" id="prodShowCat" /> Show in Catalogue
+				</label>
+				<button type="submit">Save Product</button>
+				<button type="button" id="cancelEdit">Cancel</button>
+			</form>
+		</div>
+		<div id="spinner" class="spinner hidden">
+			<div class="loader"></div>
+			<div class="spinner-text">Please wait...</div>
+		</div>
+
+		<script src="/scripts/admin.js"></script>
+	</body>
+</html>
