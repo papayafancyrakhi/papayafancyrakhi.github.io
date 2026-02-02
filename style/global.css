@@ -105,7 +105,7 @@ footer {
 
 /* Utility */
 .text-gold {
-	color: var(--gold);
+	color: var(--dark-gold);
 }
 
 .gold-outlier {
@@ -143,6 +143,7 @@ footer {
 	width: 60px;
 	height: 60px;
 	border-radius: 50%;
+	border: none;
 	background: var(--gold);
 	color: var(--deep-red);
 	display: flex;

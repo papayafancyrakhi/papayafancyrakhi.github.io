@@ -34,7 +34,7 @@
 	display: none; /* Chrome, Edge, Safari */
 }
 #bestSellers {
-	min-height: 280px; /* at least the height of your cards */
+	min-height: 320px; /* at least the height of your cards */
 }
 
 /* ================== Product Card ================== */
