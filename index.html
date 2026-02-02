@@ -11,19 +11,12 @@
 		<!-- Favicon -->
 		<link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
 
-		<!-- Google Fonts -->
+		<!-- Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap"
-			rel="stylesheet"
-			media="print"
-			onload="this.media = 'all'" />
-		<noscript>
-			<link
-				href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap"
-				rel="stylesheet" />
-		</noscript>
+			href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&display=swap"
+			rel="stylesheet" />
 
 		<!-- Bootstrap & Font Awesome -->
 		<link
@@ -42,28 +35,11 @@
 				this.onload = null;
 				this.rel = 'stylesheet';
 			" />
+		<!-- Global CSS (shared across all pages) -->
+		<link rel="stylesheet" href="/style/global.css" />
 
-		<!-- Global CSS -->
-		<link
-			rel="preload"
-			href="/style/global.css"
-			as="style"
-			onload="
-				this.onload = null;
-				this.rel = 'stylesheet';
-			" />
-		<link
-			rel="preload"
-			href="/style/home.css"
-			as="style"
-			onload="
-				this.onload = null;
-				this.rel = 'stylesheet';
-			" />
-		<noscript>
-			<link rel="stylesheet" href="/style/global.css" />
-			<link rel="stylesheet" href="/style/home.css" />
-		</noscript>
+		<!-- Homepage-specific CSS -->
+		<link rel="stylesheet" href="/style/home.css" />
 
 		<!-- Critical hero image preload -->
 		<link
