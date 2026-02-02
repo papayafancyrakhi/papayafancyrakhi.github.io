@@ -100,3 +100,19 @@
 	color: var(--white);
 	transform: scale(1.02);
 }
+
+@media (max-width: 768px) {
+	.action-btn {
+		flex-direction: column; /* stack buttons vertically on small screens */
+		gap: 10px;
+	}
+
+	.action-btn .whatsapp-Btn,
+	.action-btn .call-Btn {
+		width: 100%;
+		font-size: 16px; /* reasonable font size */
+		padding: 12px;
+		white-space: nowrap; /* prevent wrapping */
+		text-align: center;
+	}
+}
